@@ -5,6 +5,8 @@
 ![WebdriverIO](https://img.shields.io/badge/WebdriverIO-10-ea5906?logo=webdriverio&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6?logo=typescript&logoColor=white)
 
+![OrdenARS E2E: a simulated bank notification becomes a categorized expense, 9 tests passing](docs/cover.png)
+
 End-to-end tests for [OrdenARS](https://github.com/ErosCalvimonti/OrdenARS), an offline Android app that records expenses automatically from the notifications of Argentine banks and wallets.
 
 The suite drives the real app on an Android emulator with **Appium + WebdriverIO + TypeScript**. Every run builds the APK from the app's repository, boots a fresh emulator on GitHub Actions and runs the tests against it. No device farm, no shared state.
