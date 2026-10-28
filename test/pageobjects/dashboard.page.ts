@@ -18,12 +18,30 @@ class DashboardPage {
 
   /**
    * Every text in the "Últimos movimientos" row of an expense: description,
-   * "Auto" badge, wallet or category, amount and date.
+   * "Auto" badge, wallet or category, amount and date. Compose exposes the
+   * list as flat siblings, so the row is the description plus the texts that
+   * follow it, up to the date after the amount.
    */
   async movementRow(description: string) {
-    const row = `//*[@text=${JSON.stringify(description)}]/ancestor::*[.//*[starts-with(@text,'$')]][1]`;
-    await $(row).waitForDisplayed();
-    return $$(`${row}//android.widget.TextView`).map((t) => t.getText());
+    await this.scrollToBottom();
+    const first = byText(description);
+    await first.waitForDisplayed();
+    const row = [await first.getText()];
+    const following = await $$(`//*[@text=${JSON.stringify(description)}]/following-sibling::*`).map((e) => e.getText());
+    for (const text of following) {
+      row.push(text);
+      if (row.slice(1, -1).some((t) => t.startsWith("$"))) break;
+    }
+    return row;
+  }
+
+  /** On small screens the list of movements starts below the fold. */
+  async scrollToBottom() {
+    const { width, height } = await driver.getWindowSize();
+    await driver.execute("mobile: swipeGesture", {
+      left: width * 0.1, top: height * 0.3, width: width * 0.8, height: height * 0.5,
+      direction: "up", percent: 0.9,
+    });
   }
 
   async open() {
