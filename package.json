@@ -1,0 +1,27 @@
+{
+  "name": "ordenars-e2e",
+  "version": "1.0.0",
+  "private": true,
+  "description": "End-to-end tests for the OrdenARS Android app with Appium, WebdriverIO and TypeScript.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "test": "wdio run ./wdio.conf.ts",
+    "typecheck": "tsc --noEmit",
+    "appium:driver": "appium driver install uiautomator2@8.7.3"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^26.6.5",
+    "@wdio/appium-service": "^10.1.0",
+    "@wdio/cli": "^10.1.0",
+    "@wdio/junit-reporter": "^10.1.0",
+    "@wdio/local-runner": "^10.1.0",
+    "@wdio/mocha-framework": "^10.1.0",
+    "@wdio/spec-reporter": "^10.1.0",
+    "appium": "^3.9.0",
+    "appium-uiautomator2-driver": "^8.7.3",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}
