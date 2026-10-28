@@ -19,7 +19,7 @@ describe("Automatic detection from wallet notifications", () => {
     postNotification("pago-rappi", "Mercado Pago", "Pagaste $1.500,50 en Rappi");
 
     expect(await Dashboard.movementRow("Rappi")).toEqual(
-      expect.arrayContaining(["Rappi", "Auto", "Simulador (adb)", "$1.500"]),
+      expect.arrayContaining(["Rappi", "Auto", "$1.500"]),
     );
     expect(await Dashboard.monthlyTotal()).toBe("$1.500");
 
@@ -27,6 +27,7 @@ describe("Automatic detection from wallet notifications", () => {
     await History.open("Rappi");
     await expect(Detail.title).toBeDisplayed();
     await expect(Detail.detectedAutomatically).toBeDisplayed();
+    await expect(Detail.text("Simulador (adb)")).toBeDisplayed();
     await expect(Detail.text("Pagaste $1.500,50 en Rappi")).toBeDisplayed();
   });
 
