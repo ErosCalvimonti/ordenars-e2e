@@ -12,6 +12,9 @@ jobs:
   android:
     runs-on: ubuntu-24.04
     timeout-minutes: 45
+    env:
+      # The runner image ships its own Appium drivers; keep ours separate.
+      APPIUM_HOME: ${{ github.workspace }}/.appium
     steps:
       - uses: actions/checkout@v7.0.1
 
