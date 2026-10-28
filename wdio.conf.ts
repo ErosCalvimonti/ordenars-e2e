@@ -1,6 +1,6 @@
 import { mkdirSync } from "node:fs";
 import { resolve } from "node:path";
-import { disableAnimations } from "./test/helpers/adb.ts";
+import { prepareDevice } from "./test/helpers/adb.ts";
 
 const apk = resolve(process.env.APK_PATH ?? "../OrdenARS/app/build/outputs/apk/debug/app-debug.apk");
 
@@ -30,7 +30,7 @@ export const config: WebdriverIO.Config = {
   mochaOpts: { ui: "bdd", timeout: 120_000 },
   reporters: ["spec", ["junit", { outputDir: "./reports/junit" }]],
 
-  onPrepare: () => disableAnimations(),
+  onPrepare: () => prepareDevice(),
 
   afterTest: async (test, _context, { passed }) => {
     if (passed) return;

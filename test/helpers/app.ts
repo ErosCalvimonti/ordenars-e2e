@@ -1,4 +1,4 @@
-import { shell } from "./adb.ts";
+import { closeSystemDialogs, shell } from "./adb.ts";
 
 export const PACKAGE = "com.calvimonti.ordenars";
 const LISTENER = `${PACKAGE}/${PACKAGE}.service.OrdenARSNotificationListener`;
@@ -9,7 +9,7 @@ const LISTENER = `${PACKAGE}/${PACKAGE}.service.OrdenARSNotificationListener`;
  * it is granted through the shell instead of the UI).
  */
 export async function freshStart(): Promise<void> {
-  shell("cmd statusbar collapse");
+  closeSystemDialogs();
   shell(`am force-stop ${PACKAGE}`);
   shell(`pm clear ${PACKAGE}`);
   shell(`pm grant ${PACKAGE} android.permission.POST_NOTIFICATIONS`);

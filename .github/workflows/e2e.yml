@@ -65,7 +65,11 @@ jobs:
           profile: pixel_6
           disable-animations: true
           emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim
-          script: npm test
+          # Give the freshly booted system a moment to settle before testing.
+          script: |
+            adb shell settings put global hide_error_dialogs 1
+            sleep 45
+            npm test
 
       - name: Upload reports
         if: always()

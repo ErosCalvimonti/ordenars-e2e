@@ -35,7 +35,7 @@ Notification access can only be granted from the system Settings, so the tests g
 - **Page Objects** in [`test/pageobjects`](test/pageobjects), one per screen, plus the system notification drawer.
 - **User-facing selectors.** The app is built with Jetpack Compose and has no resource ids, so tests find elements by visible text and accessibility labels, like a user would.
 - **Isolated tests.** Each test clears the app data, re-grants permissions and cold-starts the app, so tests can run in any order.
-- **Animations off** on the emulator to avoid timing-dependent failures.
+- **A predictable device:** animations and system "isn't responding" dialogs are turned off before the run, and any leftover system dialog is closed before each test.
 - **Evidence on failure:** a screenshot per failed test and a JUnit report, uploaded as a CI artifact.
 
 ## Running locally

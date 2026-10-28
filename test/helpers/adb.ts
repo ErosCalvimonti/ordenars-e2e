@@ -19,9 +19,20 @@ export function postNotification(tag: string, title: string, text: string): void
   shell(`cmd notification post -t ${quote(title)} ${quote(tag)} ${quote(text)}`);
 }
 
-/** System animations make UI tests slower and flakier; turn them off. */
-export function disableAnimations(): void {
+/**
+ * Makes the device predictable for UI tests: no system animations and no
+ * "app isn't responding" dialogs, which freshly booted CI emulators tend to
+ * show for the launcher.
+ */
+export function prepareDevice(): void {
   for (const scale of ["window_animation_scale", "transition_animation_scale", "animator_duration_scale"]) {
     shell(`settings put global ${scale} 0`);
   }
+  shell("settings put global hide_error_dialogs 1");
+}
+
+/** Closes any system dialog or drawer left on top of the app. */
+export function closeSystemDialogs(): void {
+  shell("am broadcast -a android.intent.action.CLOSE_SYSTEM_DIALOGS");
+  shell("cmd statusbar collapse");
 }
